@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Powered 3D-Printed XKCD Printer"
+title:  "Pi-Powered 3D-Printed XKCD Printer"
 date:   2017-05-11 01:30:00 -0700
 categories: pi python hardware 3dprint
 ---
