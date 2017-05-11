@@ -1,0 +1,25 @@
+title: Jamish
+name: Jamish
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Dumping ground for various software, hardware, music, and game projects.
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://jamish.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+author: "Jamison Schuster"
+twitter_username: JamishS
+github_username:  Jamish
+logo: false
+paginate: 15
+google_analytics: 'UA-98814878-1'
+
+# Build settings
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+  - jekyll-paginate
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+
