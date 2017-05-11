@@ -5,10 +5,10 @@ date:   2017-05-08 21:20:27 -0700
 categories: pi python hardware 3dprint
 ---
 
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/1.jpg" description="I did it!" %}
+{% include image.html url="/assets/images/pi/1.jpg" description="I did it!" %}
 
 # Pi Zero W
-![Pi Zero W](http://192.168.1.108:4000/assets/images/pi/pi.jpg)
+![Pi Zero W](/assets/images/pi/pi.jpg)
 Sometime last month, I discovered that [Raspberry Pi Zero W](https://www.raspberrypi.org/products/pi-zero-w/) was a thing. Holy crap! It's a Pi Zero, but it has built in Wi-Fi and Bluetooth so you can avoid the [dongle-hub demonspawn](http://duinorasp.hansotten.com/wp-content/uploads/2015/12/IMG_4632.jpg) that defeats the whole purpose of having a tiny device in the first place
 
 # Inventing an excuse to buy a cool thing
@@ -79,7 +79,7 @@ image = image.convert('1')
 image = image.point(lambda x: 0 if x < 60 else 255, '1')
 {% endhighlight %}        
 
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/xkcd.bmp" description="The resulting image is actually pretty good (comic #438 for comparison)" %}
+{% include image.html url="/assets/images/pi/xkcd.bmp" description="The resulting image is actually pretty good (comic #438 for comparison)" %}
 
 ### Printing
 Alright, at this point, my thermal printer came. I used a tiny (OTG USB adapter)[https://www.amazon.com/gp/product/B015GZOHKW] to save space plugging it in.
@@ -100,7 +100,7 @@ Side bar--do you 3D print stuff? If so, you need calipers. You'll thank me later
 
 After measuring with the aforementioned calipers, I had to modify the OpenSCAD file to subtract holes for the printer and the barrel jack.
 
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/4.jpg" description="Final design--I made it a little large so I wouldn't have to print it twice." %}
+{% include image.html url="/assets/images/pi/4.jpg" description="Final design--I made it a little large so I wouldn't have to print it twice." %}
 
 ## Printing the case
 Pretty straight forward. Click and go. Printed with 0.3mm layer height because I ain't got time for anything less.
@@ -110,30 +110,30 @@ Pretty straight forward. Click and go. Printed with 0.3mm layer height because I
 ## Soldering crap
 I cut the Micro USB tip with a couple inches of wire and stripped the end. I was greeted with definitely-not-standard coloring, and had no clue which ones carried power. 
 
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/5.jpg" description="Where is your God now?" %}
+{% include image.html url="/assets/images/pi/5.jpg" description="Where is your God now?" %}
 
 The solution was to plug the other half into a USB charger and poke at the exposed wires with my multimeter. Very scientific. Turns out, for this Anker USB cord, the positive wire is the pink one and the grey one is the negative or ground or whatever. For the USB printer, it was your standard red/positive and black/negative. Solder negative to negative, positive to positive, jam it in the barrel jack. 
 
 ## Put crap into the box
 Hot glue it into the opening. Shove everything into the case. Not too complicated. My printer is calibrated pretty well, so I didn't have to re-print or re-measure anything.
 
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/2.jpg" description="Unceremoniously cram it in--nice" %}
+{% include image.html url="/assets/images/pi/2.jpg" description="Unceremoniously cram it in--nice" %}
 
 # Finishing touches
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/3.jpg" description="All finished in a neat little package." %}
+{% include image.html url="/assets/images/pi/3.jpg" description="All finished in a neat little package." %}
 
 In the end, I spruced it up a bit more. I also print the title and the alt text, along with some text wrapping since the printer library didn't natively support that. I updated the script so that it keeps track of what it has already printed (just using the file system), so that it can fetch a random comic if it has already printed the latest one. Lastly, I made a cron job so I get a new XKCD comic every morning.
 
 # Send help
-{% include image.html url="http://192.168.1.108:4000/assets/images/pi/6.jpg" description="What am I going to do with all of these???" %}
+{% include image.html url="/assets/images/pi/6.jpg" description="What am I going to do with all of these???" %}
 
 
 # Appendix
 * [Final Python code (Github)](https://github.com/Jamish/xkcd-pi-printer)
 * Case Files
-  * [pi-printer-box-and-lid.scad](http://192.168.1.108:4000/assets/files/pi/pi-printer-box-and-lid.scad)
-  * [pi-printer-lid.stl](http://192.168.1.108:4000/assets/files/pi/pi-printer-lid.stl)
-  * [pi-printer-box.stl](http://192.168.1.108:4000/assets/files/pi/pi-printer-box.stl)
+  * [pi-printer-box-and-lid.scad]({{ site.github.url }}/assets/files/pi/pi-printer-box-and-lid.scad)
+  * [pi-printer-lid.stl]({{ site.github.url }}/assets/files/pi/pi-printer-lid.stl)
+  * [pi-printer-box.stl](/assets/files/pi/pi-printer-box.stl)
 
 I don't own XKCD or anything like that, in case it wasn't obvious. 
 
