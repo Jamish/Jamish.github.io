@@ -1,11 +1,12 @@
 ---
 layout: post
 title:  "Powered 3D-Printed XKCD Printer"
-date:   2017-05-08 21:20:27 -0700
+date:   2017-05-11 01:30:00 -0700
 categories: pi python hardware 3dprint
 ---
 
-{% include image.html url="/assets/images/pi/1.jpg" description="I did it!" %}
+{% include image.html url="/assets/images/pi/1.jpg" description="" %}
+I created an autonomous Raspberry Pi Zero W powered device that prints a different XKCD comic every single day using thermal receipt paper--the same kind you'd find at a grocery store, except with less BPA.
 
 # Pi Zero W
 ![Pi Zero W](/assets/images/pi/pi.jpg)

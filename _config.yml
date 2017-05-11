@@ -14,10 +14,8 @@ google_analytics: 'UA-98814878-1'
 
 # Build settings
 markdown: kramdown
-theme: minima
-gems:
-  - jekyll-feed
-  - jekyll-paginate
+highlighter: pygments
+gems: [jekyll-paginate]
 exclude:
   - Gemfile
   - Gemfile.lock
