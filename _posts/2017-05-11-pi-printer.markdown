@@ -22,10 +22,10 @@ Pi Zero, built in Wi-Fi, thermal printer... I guess I could have it... print som
 * [Adafruit Tiny Thermal Receipt Printer - TTL Serial / USB](https://www.adafruit.com/product/2751) - $50 - Supports USB, and they provide a Python library.
 * [Barrel jack](https://www.adafruit.com/product/368) - $2
 * [5V Power supply](https://www.adafruit.com/product/276) - $8 - Apparently the printer can use over 1.5A of power, but the Pi Zero W only uses ~120mA at idle. The most CPU-intensive part of the project is resizing the image, which won't even happen while the printer is running.
-* [USB OTG Adapter](https://www.amazon.com/gp/product/B015GZOHKW) - $4 for 5 - USB A to Micro USB, for connecting the thermal printer to the Pi
+* [USB OTG Adapters](https://www.amazon.com/gp/product/B015GZOHKW) - $4 for 5 - USB A to Micro USB, for connecting the thermal printer to the Pi
 * Micro USB cable to cannibalize
 * Soldering iron, wire strippers, hot glue
-* [Monoprice Maker Select 3D Printer](https://www.monoprice.com/product?p_id=13860) with Hatchbox PLA filament. I can't recommend this printer enough--I've had zero issues with it. Out of the box, I just had to level the bed and calibrate my e-steps and it's been smooth sailing the past year and a half.
+* [Monoprice Maker Select 3D Printer](https://www.monoprice.com/product?p_id=13860) with Hatchbox PLA filament. I can't recommend this printer enough--I've had zero issues with it. Out of the box, I only had to level the bed and calibrate my e-steps and it's been smooth sailing the past year and a half.
 
 It seemed like every website was sold out of the Pi Zero W, but luckily, my local Micro Center had assloads. They kept them in a locked drawer, and had a pretty clever pricing scheme: $10 for one, $15 each if you buy more than one. Death to scalpers! Normal humans unite! 
 
@@ -53,9 +53,7 @@ Huh, that was a little too easy.
 This ended up being the only remotely complicated code in the entire project.
 
 ### Rotating
-The printer has a max width of 384 pixels, and obviously I wanted to print the comics in portrait mode every time.
-
-I only want to rotate when it's wider than it is tall, obviously:
+Receipt paper isn't very wide, but it is very long. The comic had to be rotated when it was wider than it is tall:
 {% highlight python %}
 from PIL import Image
 with Image.open('./Images/{}.png'.format(comic.number)) as image:
@@ -83,8 +81,9 @@ image = image.point(lambda x: 0 if x < 60 else 255, '1')
 {% include image.html url="/assets/images/pi/xkcd.bmp" description="The resulting image is actually pretty good (comic #438 for comparison)" %}
 
 ### Printing
-Alright, at this point, my thermal printer came. I used a tiny (OTG USB adapter)[https://www.amazon.com/gp/product/B015GZOHKW] to save space plugging it in.
-Surely, I'll have to do some file conversions, or converting the image to a byte array or compact the 0-255 bytes into 0/1 bits in a single array. I mean, surely, Adafruit's library wouldn't be able to print the image directly from the PIL library I used...
+Alright, at this point, my thermal printer came, so it was time to hook it up and start printing. I used a tiny [OTG USB adapter](https://www.amazon.com/gp/product/B015GZOHKW) to save some space later when I made the case, but in hindsight I could have used a Micro USB to female USB A cable.
+
+I figured that figuring out this printer library and printing a binary image would be pretty complicated. Surely, I'll have to do some file conversions, or convert the 8-bit pixels (which are either 0 or 255) into 0's and 1's and compact them into a bytestream. I mean, surely, Adafruit's library wouldn't be able to print the image directly from the PIL library I used...
 
 {% highlight python %}
 from Adafruit_Thermal import *
@@ -104,26 +103,29 @@ After measuring with the aforementioned calipers, I had to modify the OpenSCAD f
 {% include image.html url="/assets/images/pi/4.jpg" description="Final design--I made it a little large so I wouldn't have to print it twice." %}
 
 ## Printing the case
-Pretty straight forward. Click and go. Printed with 0.3mm layer height because I ain't got time for anything less.
+Pretty straight forward. Click and go. Printed with 0.3mm layer height because I ain't got time printing 0.1 or 0.2mm.
+<div style='position:relative;padding-bottom:100%'><iframe src='https://gfycat.com/ifr/DenseCluelessJay' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
-<iframe src='https://gfycat.com/ifr/DenseCluelessJay' frameborder='0' scrolling='no' allowfullscreen width='640' height='480' style='margin: auto;'></iframe>
-
+<br />
 ## Soldering crap
-I cut the Micro USB tip with a couple inches of wire and stripped the end. I was greeted with definitely-not-standard coloring, and had no clue which ones carried power. 
+The Pi is powered by a Micro USB port, but I wanted the printer and the Pi powered by the same DC power supply. The easiest way to accomplish that was by using a regular Micro USB cable cut in half, with the power wires soldered to the DC power source. I cut the Micro USB tip with a couple inches of wire and stripped the end. I was greeted with definitely-not-standard coloring, and had no clue which ones carried power. 
 
-{% include image.html url="/assets/images/pi/5.jpg" description="Where is your God now?" %}
+{% include image.html url="/assets/images/pi/5.jpg" description="''Where is your God now?'' - Anker" %}
 
-The solution was to plug the other half into a USB charger and poke at the exposed wires with my multimeter. Very scientific. Turns out, for this Anker USB cord, the positive wire is the pink one and the grey one is the negative or ground or whatever. For the USB printer, it was your standard red/positive and black/negative. Solder negative to negative, positive to positive, jam it in the barrel jack. 
+The solution was to plug the other half into a USB charger and poke at the exposed wires with my multimeter. Very scientific. Turns out, for this Anker USB cord, the positive wire is the pink one and the grey one is the negative or ground or whatever. For the USB printer, it was your standard red/positive and black/negative. I soldered both negatives together and both positives together, then screwed them into the barrel jack's terminals.
 
 ## Put crap into the box
-Hot glue it into the opening. Shove everything into the case. Not too complicated. My printer is calibrated pretty well, so I didn't have to re-print or re-measure anything.
+Hot glue the barrel jack into the hole. Shove everything into the case. Not too complicated. My printer is calibrated pretty well, so I didn't have to re-print or re-measure anything.
 
 {% include image.html url="/assets/images/pi/2.jpg" description="Unceremoniously cram it in--nice" %}
 
 # Finishing touches
 {% include image.html url="/assets/images/pi/3.jpg" description="All finished in a neat little package." %}
 
-In the end, I spruced it up a bit more. I also print the title and the alt text, along with some text wrapping since the printer library didn't natively support that. I updated the script so that it keeps track of what it has already printed (just using the file system), so that it can fetch a random comic if it has already printed the latest one. Lastly, I made a cron job so I get a new XKCD comic every morning.
+In the end, I spruced it up a bit more. I also print the title and the alt text, along with some text wrapping since the printer library didn't natively support that. I updated the script so that it keeps track of what it has already printed (using the file system), so that it can fetch a random comic if it has already printed the latest one. Lastly, I made a cron job so I get a new XKCD comic every morning.
+
+<div style='position:relative;padding-bottom:100%'><iframe src='https://gfycat.com/ifr/LiquidMildCaracal' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
+<br />
 
 # Send help
 {% include image.html url="/assets/images/pi/6.jpg" description="What am I going to do with all of these???" %}
